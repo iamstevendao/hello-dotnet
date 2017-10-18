@@ -65,7 +65,10 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
+    @if (IsSectionDefined("AddPageSpecificPluginScripts"))
+    {
+        @RenderSection("AddPageSpecificPluginScripts", required: false)
+    }
     @RenderSection("Scripts", required: false)
 </body>
 </html>
