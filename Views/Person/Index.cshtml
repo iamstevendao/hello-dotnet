@@ -3,7 +3,7 @@
 }
 
 <main ng-app="PersonManagementApp" ng-controller="PersonManagementCtrl">
-  <p>Hello world from smart table demo</p>
+  <h2>Hello world from smart table demo</h2>
   <table st-table="rowCollection" class="table table-striped">
     <thead>
     <tr>
@@ -12,15 +12,23 @@
         <th>birth date</th>
         <th>balance</th>
         <th>email</th>
+        <th></th>
     </tr>
+    <tr>
+		<th colspan="5">
+            <input st-search="" class="form-control" placeholder="global search ..." type="text"/>
+        </th>
+	</tr>
     </thead>
     <tbody>
     <tr ng-repeat="row in rowCollection">
         <td>{{row.firstName}}</td>
         <td>{{row.lastName}}</td>
-        <td>{{row.birthDate}}</td>
-        <td>{{row.balance}}</td>
+        <td>{{row.birthDate | date}}</td>
+        <td>{{row.balance | currency}}</td>
         <td>{{row.email}}</td>
+        <td>
+        </td>
     </tr>
     </tbody>
    </table>
