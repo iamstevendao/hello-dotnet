@@ -27,8 +27,11 @@
         <td>{{row.birthDate | date}}</td>
         <td>{{row.balance | currency}}</td>
         <td>{{row.email}}</td>
-        <td>
-        </td>
+            <td>
+                <a ng-click="removeItem(row)">Edit</a> |
+                <a ng-click="removeItem(row)">Details</a> |
+                <a ng-click="removeItem(row)">Delete</a>
+            </td>
     </tr>
     </tbody>
    </table>
