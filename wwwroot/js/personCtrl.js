@@ -8,10 +8,24 @@
         { firstName: 'Francoise', lastName: 'Frere', birthDate: new Date('1955-08-27'), balance: 42343, email: 'raymondef@gmail.com' }
       ];
 
-      $scope.removeItem = function removeItem (row) {
+      $scope.deleteItem = function deleteItem (row) {
         var index = $scope.rowCollection.indexOf(row);
         if (index !== -1) {
           $scope.rowCollection.splice(index, 1);
+        }
+      }
+
+      $scope.editItem = function editItem (row) {
+        var index = $scope.rowCollection.indexOf(row)
+        if (index !== -1) {
+          $('#myModal').modal('show')
+        }
+      }
+
+      $scope.detailItem = function detailItem (row) {
+        var index = $scope.rowCollection.indexOf(row)
+        if (index !== -1) {
+          $('#myModal').modal('show')
         }
       }
     }])

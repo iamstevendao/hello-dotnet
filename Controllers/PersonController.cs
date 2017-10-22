@@ -19,7 +19,7 @@ namespace HelloWorldAspNetCore.Controllers
     //     return NotFound();
     //   }
 
-    //   var person = await _context.Movie
+    //   var person = await _context.Person
     //       .SingleOrDefaultAsync(m => m.ID == id);
     //   if (person == null)
     //   {
