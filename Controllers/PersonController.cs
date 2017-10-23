@@ -1,14 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using HelloWorldAspNetCore.Models;
 
 namespace HelloWorldAspNetCore.Controllers
 {
   public class PersonController : Controller
   {
+    private readonly MvcMovieContext _context;
+
+    public PersonController(MvcMovieContext context)
+    {
+      _context = context;
+    }
     // GET: /Person/
     public IActionResult Index()
     {
       return View();
+    }
+
+    [HttpPost]
+    [Route("api/Person/List")]
+    public async Task<ActionResult> GetListPerson()
+    {
+      var list = _context.Person;
+      return Json(list);
     }
 
     // GET: Person/Details/5

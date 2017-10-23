@@ -11,6 +11,17 @@
       $scope.currentItem = {}
       let index = -1
 
+      $.ajax({
+        url: '/api/Person/List',
+        type: 'POST',
+        success: function (result) {
+          console.log(result)
+        },
+        error: function (e) {
+          console.log(e)
+        }
+      })
+
       $scope.reset = function () {
         $scope.clone = angular.copy($scope.currentItem)
       }
