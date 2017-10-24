@@ -5,15 +5,22 @@ namespace HelloWorldAspNetCore.Models
 {
   public class Person
   {
+
+    public Person(int id, string name, string dob, string address)
+    {
+      ID = id;
+      Name = name;
+      Dob = dob;
+      Address = address;
+    }
+
+    public Person() { }
     public int ID { get; set; }
 
     [StringLength(60, MinimumLength = 3)]
     [Required]
     public string Name { get; set; }
-
-    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-    [DataType(DataType.Date)]
-    public DateTime Dob { get; set; }
+    public string Dob { get; set; }
 
     [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
     [StringLength(30)]

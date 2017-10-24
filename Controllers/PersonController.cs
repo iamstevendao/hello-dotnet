@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 using HelloWorldAspNetCore.Models;
 
 namespace HelloWorldAspNetCore.Controllers
@@ -27,6 +32,44 @@ namespace HelloWorldAspNetCore.Controllers
       return Json(list);
     }
 
+    // POST: persons/Edit/5
+    [HttpPost]
+    [Route("api/Person/Edit/{id}")]
+    public async Task<String> Edit(int id, [Bind("ID,Name,Dob,Address")] Person person)
+    {
+      if (id != person.ID)
+      {
+        return "Person is not found";
+      }
+
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          _context.Update(person);
+          await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+          if (!PersonExists(person.ID))
+          {
+            return "Person is not found";
+          }
+          else
+          {
+            throw;
+          }
+        }
+        return "success!";
+        // return RedirectToAction(nameof(Index));
+      }
+      return "failed!";
+    }
+
+    private bool PersonExists(int id)
+    {
+      return _context.Person.Any(e => e.ID == id);
+    }
     // GET: Person/Details/5
     // public async Task<IActionResult> Details(int? id)
     // {
@@ -53,12 +96,12 @@ namespace HelloWorldAspNetCore.Controllers
     //     return NotFound();
     //   }
 
-    //   var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
-    //   if (movie == null)
+    //   var person = await _context.person.SingleOrDefaultAsync(m => m.ID == id);
+    //   if (person == null)
     //   {
     //     return NotFound();
     //   }
-    //   return View(movie);
+    //   return View(person);
     // }
   }
 }

@@ -2,25 +2,26 @@
   'use strict'
   angular.module('PersonManagementApp', ['smart-table'])
     .controller('PersonManagementCtrl', ['$scope', function ($scope) {
-      $scope.rowCollection = [
-        { name: 'Laurent Renard', dob: new Date(1987, 5, 21), email: 'whatever@gmail.com' },
-        { name: 'Blandine Faivre', dob: new Date(1987, 5, 21), email: 'oufblandou@gmail.com' },
-        { name: 'Francoise Frere', dob: new Date(1987, 5, 21), email: 'raymondef@gmail.com' }
-      ]
-
+      $scope.rowCollection = []
       $scope.currentItem = {}
       let index = -1
 
       $.ajax({
         url: '/api/Person/List',
         type: 'POST',
-        success: function (result) {
-          console.log(result)
+        success: function (response) {
+          $scope.rowCollection = formatResponse(response)
+          $scope.$apply()
         },
         error: function (e) {
           console.log(e)
         }
       })
+
+      function formatResponse (response) {
+        response.map((value) => { value.dob = new Date(value.dob) })
+        return response
+      }
 
       $scope.reset = function () {
         $scope.clone = angular.copy($scope.currentItem)
@@ -39,13 +40,6 @@
         $('#myModal').modal('show')
       }
 
-      $scope.detailItem = function (row) {
-        getCurrentItem(row)
-        if (index !== -1) {
-          $('#myModal').modal('show')
-        }
-      }
-
       function getCurrentItem (row) {
         index = $scope.rowCollection.indexOf(row)
         $scope.currentItem = row
@@ -53,6 +47,23 @@
 
       $scope.update = function () {
         $scope.rowCollection[index] = $scope.clone
+        let person = {
+          ID: $scope.clone.id,
+          Name: $scope.clone.name,
+          Dob: $scope.clone.dob,
+          Address: $scope.clone.address
+        }
+        $.ajax({
+          url: '/api/Person/Edit/' + person.ID,
+          type: 'POST',
+          data: person,
+          success: function (response) {
+            console.log(response);
+          },
+          error: function (e) {
+            console.log(e)
+          }
+        })
         $('#myModal').modal('hide')
       }
     }])

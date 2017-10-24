@@ -55,28 +55,28 @@ namespace HelloWorldAspNetCore.Models
              new Person
              {
                Name = "Steven Gerrard",
-               Dob = DateTime.Parse("1989-1-11"),
+               Dob = "1989-1-11",
                Address = "Romantic Comedy"
              },
 
               new Person
               {
                 Name = "Daniel Agger",
-                Dob = DateTime.Parse("1999-1-11"),
+                Dob = "1999-1-11",
                 Address = "Romantic Comedy"
               },
 
               new Person
               {
                 Name = "Fernando Torres",
-                Dob = DateTime.Parse("1989-1-11"),
+                Dob = "1989-1-11",
                 Address = "Romantic Comedy"
               },
 
               new Person
               {
                 Name = "Emre Can",
-                Dob = DateTime.Parse("1989-1-11"),
+                Dob = "1989-1-11",
                 Address = "Romantic Comedy"
               }
           );
