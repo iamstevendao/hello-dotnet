@@ -30,6 +30,16 @@
       $scope.deleteItem = function (row) {
         getCurrentItem(row)
         if (index !== -1) {
+          $.ajax({
+            url: '/api/Person/Delete/' + $scope.currentItem.id,
+            type: 'POST',
+            success: function (response) {
+              console.log(response);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
           $scope.rowCollection.splice(index, 1)
         }
       }

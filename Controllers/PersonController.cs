@@ -32,7 +32,7 @@ namespace HelloWorldAspNetCore.Controllers
       return Json(list);
     }
 
-    // POST: persons/Edit/5
+    // POST: api/person/Edit/5
     [HttpPost]
     [Route("api/Person/Edit/{id}")]
     public async Task<String> Edit(int id, [Bind("ID,Name,Dob,Address")] Person person)
@@ -64,6 +64,31 @@ namespace HelloWorldAspNetCore.Controllers
         // return RedirectToAction(nameof(Index));
       }
       return "failed!";
+    }
+
+    // POST: api/person/Edit/5
+    [HttpPost]
+    [Route("api/Person/Delete/{id}")]
+    public async Task<String> Delete(int id)
+    {
+      try
+      {
+        var person = await _context.Person.SingleOrDefaultAsync(m => m.ID == id);
+        _context.Person.Remove(person);
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!PersonExists(id))
+        {
+          return "Person is not found";
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return "success!";
     }
 
     private bool PersonExists(int id)
